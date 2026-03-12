@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Jarvis AI",
+  "description": "A futuristic voice assistant powered by Gemini Live API.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}

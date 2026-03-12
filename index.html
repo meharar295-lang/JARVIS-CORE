@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jarvis AI</title>
+    <script>
+      (function() {
+        const _f = window.fetch;
+        const _h = {
+          get: (t, p) => (p === 'fetch' ? _f : (p === 'global' || p === 'globalThis' || p === 'self' ? _p : (typeof t[p] === 'function' ? t[p].bind(t) : t[p]))),
+          set: (t, p, v) => (p === 'fetch' ? true : (t[p] = v, true)),
+          defineProperty: (t, p, d) => (p === 'fetch' ? true : Reflect.defineProperty(t, p, d))
+        };
+        const _p = new Proxy(window, _h);
+        ['global', 'globalThis', 'self'].forEach(k => {
+          try { Object.defineProperty(window, k, { get: () => _p, configurable: true }); } catch (e) { try { window[k] = _p; } catch (err) {} }
+        });
+        try { Object.defineProperty(window, 'fetch', { get: () => _f, set: () => {}, configurable: true }); } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
